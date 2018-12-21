@@ -1,0 +1,65 @@
+#mainWindow
+{
+    -fx-background-color: black;
+}
+
+#inform_label
+{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+#plain_lb
+{
+    -fx-text-fill: #990000;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+#search_btn:hover
+ {
+    -fx-background-color: #990000;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+ }
+
+#encrypt_btn:hover
+{
+    -fx-background-color: #990000;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+}
+
+#decrypt_btn:hover
+{
+    -fx-background-color: #990000;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+}
+
+#search_btn
+{
+    -fx-background-color: white;
+    -fx-text-fill: #990000;
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+}
+
+#encrypt_btn
+{
+    -fx-background-color: white;
+    -fx-text-fill: #990000;
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+}
+
+#decrypt_btn
+{
+    -fx-background-color: white;
+    -fx-text-fill: #990000;
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+}
