@@ -123,6 +123,8 @@ public class mainWindowController
                 encrypt = cipher.doFinal(msg);
                 plain_text_area.clear();
                 decrypt_area.appendText(new String(encrypt, "UTF-8"));
+                decrypt_btn.setDisable(false);
+                encrypt_btn.setDisable(true);
 
             } catch (Exception e)
             {
@@ -156,6 +158,8 @@ public class mainWindowController
                 decrypt = cipher.doFinal(encrypt);
                 plain_text_area.appendText(new String(decrypt, "UTF-8"));
                 decrypt_area.clear();
+                decrypt_btn.setDisable(true);
+                encrypt_btn.setDisable(false);
             } catch (Exception e)
             {
                 e.printStackTrace();
