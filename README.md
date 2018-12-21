@@ -1,4 +1,4 @@
-# # Information Security #
+# Information Security #
 ## Implementing a Simple Cryptotool ##
 
 This application is used to encrypt and decrypt **text files**. In order to do that specific steps have to be followed.
