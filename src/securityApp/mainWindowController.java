@@ -41,7 +41,7 @@ public class mainWindowController
     private Label inform_label;
 
     @FXML
-    private TextArea plain_text;
+    private TextArea plain_text_area;
 
     @FXML
     private TextArea decrypt_area;
@@ -93,7 +93,7 @@ public class mainWindowController
                 while((i = input.read())!= -1)
                     msg[counter++] += (byte)i;
             }catch(IOException e){}
-            plain_text.appendText(new String(msg, "UTF-8"));
+            plain_text_area.appendText(new String(msg, "UTF-8"));
         }
     }//end of selectFileHandler
 
@@ -121,7 +121,7 @@ public class mainWindowController
                 IvParameterSpec iv = new IvParameterSpec(ivBytes.getBytes("UTF-8"));
                 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
                 encrypt = cipher.doFinal(msg);
-                plain_text.clear();
+                plain_text_area.clear();
                 decrypt_area.appendText(new String(encrypt, "UTF-8"));
 
             } catch (Exception e)
@@ -154,7 +154,7 @@ public class mainWindowController
 
                 cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
                 decrypt = cipher.doFinal(encrypt);
-                plain_text.appendText(new String(decrypt, "UTF-8"));
+                plain_text_area.appendText(new String(decrypt, "UTF-8"));
                 decrypt_area.clear();
             } catch (Exception e)
             {
