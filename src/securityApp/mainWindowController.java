@@ -96,7 +96,8 @@ public class mainWindowController
             }
             catch(IOException e)
             {
-
+                errorMessage("File unavailable","The file could not be selected or found");
+                e.printStackTrace();
             }
 
             input.close();
