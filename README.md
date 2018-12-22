@@ -12,4 +12,6 @@ The steps that have to be followed are:<br>
     window appears to inform them about their incorrect action.
 6. In order to decrypt the file, the user follows the **same steps** but instead of pressing the "**Encrypt**" 
 button, they should press the "**Decrypt**" button.
-7. There is also a "**?**" button that will show the instructions of the application if it is pressed.
+7. For security reasons the user **cannot type the path inside the textfield**. The path will appear only if you selected
+ the file from the pop-up window!!!
+8. There is also a "**?**" button that will show the instructions of the application if it is pressed.

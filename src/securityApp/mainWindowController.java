@@ -304,7 +304,8 @@ public class mainWindowController
                 "4. Then press the button \"Encrypt\" and a pop-up window will be displayed to inform you if the action was successfully accomplished.\n" +
                 "    * If a file was not selected and any of the two buttons \"Encrypt\" or \"Decrypt\" are pressed then a pop-up window appears that will inform about the incorrect action.\n\n" +
                 "5. In order to decrypt the file, the same steps have to be followed but instead of pressing the \"Encrypt\" \n" +
-                "button, press the \"Decrypt\" button.");
+                "button, press the \"Decrypt\" button.\n\n" +
+                "6. You cannot type the path inside the textfield. The path will appear only if you selected the file from the pop-up window!!!");
 
         alert.showAndWait();
     }//end of helpHandler
