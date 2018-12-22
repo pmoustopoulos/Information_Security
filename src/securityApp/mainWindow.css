@@ -9,11 +9,12 @@
     -fx-font-size: 20px;
 }
 
-#plain_lb
+#title
 {
     -fx-text-fill: #990000;
-    -fx-font-size: 20px;
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
 #search_btn:hover

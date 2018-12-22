@@ -21,7 +21,7 @@ public class Main extends Application {
     {
         Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
         primaryStage.setTitle("Security App");
-        primaryStage.setScene(new Scene(root, 600, 650));
+        primaryStage.setScene(new Scene(root, 430, 320));
         primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()

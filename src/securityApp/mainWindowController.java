@@ -19,12 +19,11 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.Scanner;
 
 
-
-
-
+/**
+ * This is the mainWindowController that is connected with the fxml file
+ */
 public class mainWindowController
 {
 
@@ -41,12 +40,6 @@ public class mainWindowController
     private Label inform_label;
 
     @FXML
-    private TextArea plain_text_area;
-
-    @FXML
-    private TextArea modified_area;
-
-    @FXML
     private TextField input_textfield;
 
     @FXML
@@ -61,7 +54,6 @@ public class mainWindowController
 
     /**
      * This method is used to select the file from the computer.
-     * Only text files are available for selection.
      *
      * @param event the event that was invoked when the button was pressed
      * @throws FileNotFoundException thrown if the file is not found
@@ -87,8 +79,6 @@ public class mainWindowController
 
             input_textfield.setText(file.getAbsolutePath());
             FileInputStream input = new FileInputStream(file);
-            plain_text_area.clear();
-            modified_area.clear();
             int i;
             message = new byte[input.available()];
             int counter=0;
@@ -100,7 +90,8 @@ public class mainWindowController
                 }
             }
             catch(IOException e){}
-            plain_text_area.appendText(new String(message, "UTF-8"));
+            encrypt_btn.setDisable(false);
+            encrypt_btn.setDisable(false);
             input.close();
         }
     }//end of selectFileHandler
@@ -115,24 +106,31 @@ public class mainWindowController
     @FXML
     void encryptHandler(ActionEvent event) throws FileNotFoundException
     {
-        FileOutputStream output = new FileOutputStream(input_textfield.getText());
+
         if(input_textfield.getText() == null || input_textfield.getText().trim().isEmpty())
         {
             errorMessage("No input file","Please select a file to be Encrypted!!!");
         }
         else
         {
+            FileOutputStream output = new FileOutputStream(input_textfield.getText());
             try
             {
                 Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-                SecretKeySpec skeySpec = new SecretKeySpec("moutsopoulos1234".getBytes("UTF-8"), "AES");
-                String ivBytes = "1234567891123456";
+                SecretKeySpec skeySpec = new SecretKeySpec("wH@td0uWanT@gaIn".getBytes("UTF-8"), "AES");
+                String ivBytes = "uwI11n3verP@sSM3";
                 IvParameterSpec iv = new IvParameterSpec(ivBytes.getBytes("UTF-8"));
                 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-                encrypt = cipher.doFinal(message);
+                try
+                {
+                    encrypt = cipher.doFinal(message);
+                }
+                catch (IllegalBlockSizeException e)
+                {
+                    errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
+                    e.printStackTrace();
+                }
                 output.write(encrypt);
-                plain_text_area.clear();
-                modified_area.appendText(new String(encrypt, "UTF-8"));
                 informUser("Encrypted");
                 decrypt_btn.setDisable(false);
                 encrypt_btn.setDisable(true);
@@ -163,10 +161,6 @@ public class mainWindowController
             {
                 e.printStackTrace();
             }
-            catch (IllegalBlockSizeException e)
-            {
-                e.printStackTrace();
-            }
             catch (IOException e)
             {
                 e.printStackTrace();
@@ -183,7 +177,7 @@ public class mainWindowController
     @FXML
     void decryptHandler(ActionEvent event) throws FileNotFoundException
     {
-        FileOutputStream output = new FileOutputStream(input_textfield.getText());
+
         if(input_textfield.getText() == null || input_textfield.getText().trim().isEmpty())
         {
             errorMessage("No input file","Please select a file to be Decrypted!!!");
@@ -191,16 +185,24 @@ public class mainWindowController
         else{
             try
             {
+                FileOutputStream output = new FileOutputStream(input_textfield.getText());
                 Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-                SecretKeySpec skeySpec = new SecretKeySpec("moutsopoulos1234".getBytes("UTF-8"), "AES");
-                String ivBytes = "1234567891123456";
+                SecretKeySpec skeySpec = new SecretKeySpec("wH@td0uWanT@gaIn".getBytes("UTF-8"), "AES");
+                String ivBytes = "uwI11n3verP@sSM3";
                 IvParameterSpec iv = new IvParameterSpec(ivBytes.getBytes("UTF-8"));
 
                 cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-                decrypt = cipher.doFinal(encrypt);
+                try
+                {
+                    decrypt = cipher.doFinal(encrypt);
+                }
+                catch (IllegalBlockSizeException e)
+                {
+                    errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
+                    e.printStackTrace();
+                }
+
                 output.write(decrypt);
-                modified_area.clear();
-                plain_text_area.appendText(new String(decrypt, "UTF-8"));
                 informUser("Decrypted");
                 decrypt_btn.setDisable(true);
                 encrypt_btn.setDisable(false);
@@ -228,11 +230,6 @@ public class mainWindowController
             }
             catch (UnsupportedEncodingException e)
             {
-                e.printStackTrace();
-            }
-            catch (IllegalBlockSizeException e)
-            {
-                errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
                 e.printStackTrace();
             }
             catch (IOException e)
@@ -280,13 +277,6 @@ public class mainWindowController
 
         alert.showAndWait();
     }//end of informUser
-
-
-    public boolean checkIfTextSelected(File file)
-    {
-
-        return true;
-    }
 
 }//end of class mainWindowController
 
