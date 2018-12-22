@@ -48,10 +48,19 @@ public class mainWindowController
     @FXML
     private Button help_btn;
 
+    /**
+     * The array of bytes that holds the encrypted message
+     */
     byte[] encrypt;
 
+    /**
+     * The array of bytes that holds the decrypted message
+     */
     byte[] decrypt;
 
+    /**
+     * The array of bytes that holds the message
+     */
     byte [] message;
 
 
@@ -81,7 +90,6 @@ public class mainWindowController
         }
         else
         {
-
             input_textfield.setText(file.getAbsolutePath());
             FileInputStream input = new FileInputStream(file);
             int i;
