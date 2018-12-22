@@ -17,6 +17,14 @@
     -fx-alignment: center;
 }
 
+#help_btn:hover
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: #990000;
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+}
+
 #search_btn:hover
  {
     -fx-background-color: #990000;
@@ -38,6 +46,15 @@
     -fx-background-color: #990000;
     -fx-text-fill: white;
     -fx-alignment: center;
+    -fx-font-size: 20px;
+}
+
+#help_btn
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
     -fx-font-size: 20px;
 }
 

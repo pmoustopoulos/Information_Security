@@ -18,5 +18,6 @@
             <Image url="@../images/imageTop.png" />
          </image>
       </ImageView>
+      <Button fx:id="help_btn" layoutX="374.0" layoutY="11.0" mnemonicParsing="false" onAction="#helpHandler" text="?" />
    </children>
 </Pane>
