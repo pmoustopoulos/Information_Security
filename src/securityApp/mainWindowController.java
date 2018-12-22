@@ -167,7 +167,6 @@ public class mainWindowController
             catch (IllegalBlockSizeException e)
             {
                 errorMessage("Cannot be encrypted", "The file you selected cannot be encrypted because it is already encrypted");
-                e.printStackTrace();
             }
         }
     }//end of encryptHandler
@@ -197,7 +196,14 @@ public class mainWindowController
 
                 cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
 
-                decrypt = cipher.doFinal(encrypt);
+                if(encrypt == null)
+                {
+                    decrypt = cipher.doFinal(message);
+                }
+                else
+                {
+                    decrypt = cipher.doFinal(encrypt);
+                }
 
                 output.write(decrypt);
                 informUser("Decrypted");
@@ -234,7 +240,6 @@ public class mainWindowController
             catch (IllegalBlockSizeException e)
             {
                 errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
-                e.printStackTrace();
             }
         }
     }//end of decryptHandler
