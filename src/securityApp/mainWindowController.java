@@ -294,18 +294,16 @@ public class mainWindowController
     void helpHandler(ActionEvent event)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Instruction");
+        alert.setTitle("Instructions");
         alert.setHeaderText("How to use the application");
         alert.setContentText("This application is used to encrypt and decrypt files. In order to do that specific steps have to be followed.\n" +
                 "The steps that have to be followed are:\n\n" +
                 "1. Press the button with the three dots \"...\".\n\n" +
                 "2. Select the file that you want to encrypt.\n\n" +
                 "3. As soon as a file is selected, inside the textfield the path of the file will appear.\n\n" +
-                "4. Then press the button \"Encrypt\" and a pop-up window will be displayed to inform you\n" +
-                "   if the action was successfully accomplished.\n" +
-                "    * If a file was not selected and any of the two buttons \"Encrypt\" or \"Decrypt\" are pressed then a pop-up \n" +
-                "    window appears that will inform about the incorrect action.\n\n" +
-                "6. In order to decrypt the file, the same steps have to be followed but instead of pressing the \"Encrypt\" \n" +
+                "4. Then press the button \"Encrypt\" and a pop-up window will be displayed to inform you if the action was successfully accomplished.\n" +
+                "    * If a file was not selected and any of the two buttons \"Encrypt\" or \"Decrypt\" are pressed then a pop-up window appears that will inform about the incorrect action.\n\n" +
+                "5. In order to decrypt the file, the same steps have to be followed but instead of pressing the \"Encrypt\" \n" +
                 "button, press the \"Decrypt\" button.");
 
         alert.showAndWait();

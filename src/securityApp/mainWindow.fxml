@@ -7,7 +7,7 @@
 
 <Pane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="430.0" stylesheets="@mainWindow.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="securityApp.mainWindowController">
    <children>
-      <TextField fx:id="input_textfield" layoutX="56.0" layoutY="234.0" prefHeight="35.0" prefWidth="261.0" />
+      <TextField fx:id="input_textfield" editable="false" layoutX="56.0" layoutY="234.0" prefHeight="35.0" prefWidth="261.0" />
       <Button fx:id="search_btn" layoutX="328.0" layoutY="233.0" mnemonicParsing="false" onAction="#selectFileHandler" prefHeight="30.0" prefWidth="46.0" text="..." />
       <Button fx:id="encrypt_btn" layoutX="56.0" layoutY="352.0" mnemonicParsing="false" onAction="#encryptHandler" prefHeight="44.0" prefWidth="99.0" text="Encrypt" />
       <Button fx:id="decrypt_btn" layoutX="275.0" layoutY="352.0" mnemonicParsing="false" onAction="#decryptHandler" prefHeight="44.0" prefWidth="99.0" text="Decrypt" />
