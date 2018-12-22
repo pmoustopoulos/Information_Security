@@ -94,6 +94,7 @@ public class mainWindowController
                     msg[counter++] += (byte)i;
             }catch(IOException e){}
             plain_text_area.appendText(new String(msg, "UTF-8"));
+            input.close();
         }
     }//end of selectFileHandler
 
@@ -105,8 +106,9 @@ public class mainWindowController
      * @param event the event that was invoked when the button was pressed
      */
     @FXML
-    void encryptHandler(ActionEvent event)
+    void encryptHandler(ActionEvent event) throws FileNotFoundException
     {
+        FileOutputStream output = new FileOutputStream(input_textfield.getText());
         if(input_textfield.getText() == null || input_textfield.getText().trim().isEmpty())
         {
             errorMessage("No input file","Please select a file to be Encrypted!!!");
@@ -121,14 +123,44 @@ public class mainWindowController
                 IvParameterSpec iv = new IvParameterSpec(ivBytes.getBytes("UTF-8"));
                 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
                 encrypt = cipher.doFinal(msg);
+                output.write(encrypt);
                 plain_text_area.clear();
                 decrypt_area.appendText(new String(encrypt, "UTF-8"));
                 decrypt_btn.setDisable(false);
                 encrypt_btn.setDisable(true);
 
-            } catch (Exception e)
+            }
+            catch (NoSuchAlgorithmException e)
             {
-               e.printStackTrace();
+                e.printStackTrace();
+            }
+            catch (InvalidKeyException e)
+            {
+                e.printStackTrace();
+            }
+            catch (InvalidAlgorithmParameterException e)
+            {
+                e.printStackTrace();
+            }
+            catch (NoSuchPaddingException e)
+            {
+                e.printStackTrace();
+            }
+            catch (BadPaddingException e)
+            {
+                e.printStackTrace();
+            }
+            catch (UnsupportedEncodingException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IllegalBlockSizeException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
         }
     }
@@ -140,8 +172,9 @@ public class mainWindowController
      * @param event the event that was invoked when the button was pressed
      */
     @FXML
-    void decryptHandler(ActionEvent event)
+    void decryptHandler(ActionEvent event) throws FileNotFoundException
     {
+        FileOutputStream output = new FileOutputStream(input_textfield.getText());
         if(input_textfield.getText() == null || input_textfield.getText().trim().isEmpty())
         {
             errorMessage("No input file","Please select a file to be Decrypted!!!");
@@ -156,11 +189,42 @@ public class mainWindowController
 
                 cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
                 decrypt = cipher.doFinal(encrypt);
+                output.write(decrypt);
                 plain_text_area.appendText(new String(decrypt, "UTF-8"));
                 decrypt_area.clear();
                 decrypt_btn.setDisable(true);
                 encrypt_btn.setDisable(false);
-            } catch (Exception e)
+            }
+            catch (NoSuchAlgorithmException e)
+            {
+                e.printStackTrace();
+            }
+            catch (InvalidKeyException e)
+            {
+                e.printStackTrace();
+            }
+            catch (InvalidAlgorithmParameterException e)
+            {
+                e.printStackTrace();
+            }
+            catch (NoSuchPaddingException e)
+            {
+                e.printStackTrace();
+            }
+            catch (BadPaddingException e)
+            {
+                e.printStackTrace();
+            }
+            catch (UnsupportedEncodingException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IllegalBlockSizeException e)
+            {
+                errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
+                //e.printStackTrace();
+            }
+            catch (IOException e)
             {
                 e.printStackTrace();
             }
@@ -180,7 +244,7 @@ public class mainWindowController
             {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
 
-                alert.setTitle("Error alert");
+                alert.setTitle("Error message");
                 alert.setHeaderText(title);
                 alert.setContentText(message);
 
