@@ -44,7 +44,7 @@ public class mainWindowController
     private TextArea plain_text_area;
 
     @FXML
-    private TextArea decrypt_area;
+    private TextArea modified_area;
 
     @FXML
     private TextField input_textfield;
@@ -56,7 +56,7 @@ public class mainWindowController
 
     byte[] decrypt;
 
-    byte [] msg;
+    byte [] message;
 
 
     /**
@@ -64,7 +64,7 @@ public class mainWindowController
      * Only text files are available for selection.
      *
      * @param event the event that was invoked when the button was pressed
-     * @throws FileNotFoundException thrown is the file is not found
+     * @throws FileNotFoundException thrown if the file is not found
      */
     @FXML
     void selectFileHandler(ActionEvent event) throws IOException
@@ -72,6 +72,7 @@ public class mainWindowController
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("open files");
         //filters the selections to be only .txt files
+        //Not used eventually in order to manipulate different types of files
 //        FileChooser.ExtensionFilter extFilter =
 //                new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt");
 //        fileChooser.getExtensionFilters().add(extFilter);
@@ -83,17 +84,23 @@ public class mainWindowController
         }
         else
         {
+
             input_textfield.setText(file.getAbsolutePath());
             FileInputStream input = new FileInputStream(file);
+            plain_text_area.clear();
+            modified_area.clear();
             int i;
-//            String msg="";
-            msg = new byte[input.available()];
+            message = new byte[input.available()];
             int counter=0;
-            try {
-                while((i = input.read())!= -1)
-                    msg[counter++] += (byte)i;
-            }catch(IOException e){}
-            plain_text_area.appendText(new String(msg, "UTF-8"));
+            try
+            {
+                while((i = input.read()) != -1)
+                {
+                    message[counter++] += (byte)i;
+                }
+            }
+            catch(IOException e){}
+            plain_text_area.appendText(new String(message, "UTF-8"));
             input.close();
         }
     }//end of selectFileHandler
@@ -122,12 +129,14 @@ public class mainWindowController
                 String ivBytes = "1234567891123456";
                 IvParameterSpec iv = new IvParameterSpec(ivBytes.getBytes("UTF-8"));
                 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-                encrypt = cipher.doFinal(msg);
+                encrypt = cipher.doFinal(message);
                 output.write(encrypt);
                 plain_text_area.clear();
-                decrypt_area.appendText(new String(encrypt, "UTF-8"));
+                modified_area.appendText(new String(encrypt, "UTF-8"));
+                informUser("Encrypted");
                 decrypt_btn.setDisable(false);
                 encrypt_btn.setDisable(true);
+                output.close();
 
             }
             catch (NoSuchAlgorithmException e)
@@ -163,7 +172,7 @@ public class mainWindowController
                 e.printStackTrace();
             }
         }
-    }
+    }//end of encryptHandler
 
     /**
      * This method is invoked when the "decrypt" button is pressed.
@@ -190,10 +199,12 @@ public class mainWindowController
                 cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
                 decrypt = cipher.doFinal(encrypt);
                 output.write(decrypt);
+                modified_area.clear();
                 plain_text_area.appendText(new String(decrypt, "UTF-8"));
-                decrypt_area.clear();
+                informUser("Decrypted");
                 decrypt_btn.setDisable(true);
                 encrypt_btn.setDisable(false);
+                output.close();
             }
             catch (NoSuchAlgorithmException e)
             {
@@ -222,15 +233,14 @@ public class mainWindowController
             catch (IllegalBlockSizeException e)
             {
                 errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
-                //e.printStackTrace();
+                e.printStackTrace();
             }
             catch (IOException e)
             {
                 e.printStackTrace();
             }
         }
-
-    }
+    }//end of decryptHandler
 
     /**
      * This method is used to display error messages to the user
@@ -255,8 +265,28 @@ public class mainWindowController
         );
     }//end of errorMessage
 
+    /**
+     * This method is used to create a pop-up window to inform
+     * the user about their action
+     *
+     * @param action the action they made is displayed inside the window
+     */
+    public void informUser(String action)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(action + " status");
+        alert.setHeaderText("The file was " + action + " successfully!");
+        alert.setContentText(null);
+
+        alert.showAndWait();
+    }//end of informUser
 
 
+    public boolean checkIfTextSelected(File file)
+    {
+
+        return true;
+    }
 
 }//end of class mainWindowController
 
