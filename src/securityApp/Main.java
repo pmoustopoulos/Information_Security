@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -21,8 +22,10 @@ public class Main extends Application {
     {
         Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
         primaryStage.setTitle("Security App");
-        primaryStage.setScene(new Scene(root, 430, 320));
+        primaryStage.setScene(new Scene(root, 430, 430));
         primaryStage.setResizable(false);
+        Image icon = new Image(getClass().getResourceAsStream("/images/EnDeIcon.png"));
+        primaryStage.getIcons().add(icon);
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()
         {
