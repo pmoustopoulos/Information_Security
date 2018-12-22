@@ -68,6 +68,8 @@ public class mainWindowController
 //        FileChooser.ExtensionFilter extFilter =
 //                new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt");
 //        fileChooser.getExtensionFilters().add(extFilter);
+        encrypt_btn.setDisable(false);
+        encrypt_btn.setDisable(false);
         File file = fileChooser.showOpenDialog(new Stage());
 
         if(file == null)
@@ -89,9 +91,11 @@ public class mainWindowController
                     message[counter++] += (byte)i;
                 }
             }
-            catch(IOException e){}
-            encrypt_btn.setDisable(false);
-            encrypt_btn.setDisable(false);
+            catch(IOException e)
+            {
+
+            }
+
             input.close();
         }
     }//end of selectFileHandler
@@ -121,21 +125,12 @@ public class mainWindowController
                 String ivBytes = "uwI11n3verP@sSM3";
                 IvParameterSpec iv = new IvParameterSpec(ivBytes.getBytes("UTF-8"));
                 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-                try
-                {
-                    encrypt = cipher.doFinal(message);
-                }
-                catch (IllegalBlockSizeException e)
-                {
-                    errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
-                    e.printStackTrace();
-                }
+
+                encrypt = cipher.doFinal(message);
+
                 output.write(encrypt);
                 informUser("Encrypted");
-                decrypt_btn.setDisable(false);
-                encrypt_btn.setDisable(true);
                 output.close();
-
             }
             catch (NoSuchAlgorithmException e)
             {
@@ -163,6 +158,11 @@ public class mainWindowController
             }
             catch (IOException e)
             {
+                e.printStackTrace();
+            }
+            catch (IllegalBlockSizeException e)
+            {
+                errorMessage("Cannot be encrypted", "The file you selected cannot be encrypted because it is already encrypted");
                 e.printStackTrace();
             }
         }
@@ -192,20 +192,11 @@ public class mainWindowController
                 IvParameterSpec iv = new IvParameterSpec(ivBytes.getBytes("UTF-8"));
 
                 cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-                try
-                {
-                    decrypt = cipher.doFinal(encrypt);
-                }
-                catch (IllegalBlockSizeException e)
-                {
-                    errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
-                    e.printStackTrace();
-                }
+
+                decrypt = cipher.doFinal(encrypt);
 
                 output.write(decrypt);
                 informUser("Decrypted");
-                decrypt_btn.setDisable(true);
-                encrypt_btn.setDisable(false);
                 output.close();
             }
             catch (NoSuchAlgorithmException e)
@@ -234,6 +225,11 @@ public class mainWindowController
             }
             catch (IOException e)
             {
+                e.printStackTrace();
+            }
+            catch (IllegalBlockSizeException e)
+            {
+                errorMessage("Cannot be decrypted", "The file you selected cannot be decrypted. It is not encrypted thus it cannot be decrypted");
                 e.printStackTrace();
             }
         }
